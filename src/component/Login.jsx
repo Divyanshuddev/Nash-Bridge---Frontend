@@ -1,10 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logokode-removebg-preview.png";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 export default function Login() {
+  const [loginData,setLoginData]= useState({email:"",password:""})
+  const onHandleSubmit=()=>{
+    
+  }
   return (
     <div>
       <Header />
