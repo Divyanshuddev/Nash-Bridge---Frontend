@@ -13,6 +13,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import HomeTab from "./HomeTab";
+import UserProfile from "./UserProfile";
+import Calender from "./Calender";
 
 const drawerWidth = 220;
 function CustomTabPanel(props) {
@@ -139,16 +141,16 @@ export default function Profile() {
             Item Two
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            Item Three
+           <Calender/>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={3}>
-            Item One
+            <UserProfile />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={4}>
             Item Two
           </CustomTabPanel>
           <CustomTabPanel value={value} index={5}>
-            Item Three
+            Item three
           </CustomTabPanel>
         </Box>
       </Box>
