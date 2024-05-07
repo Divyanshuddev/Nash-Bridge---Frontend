@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nash-deployment
+  labels:
+    app: nashbridge
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nashbridge
+  template:
+    metadata:
+      labels:
+        app: nashbridge
+    spec:
+      containers:
+      - name: nash-bridge
+        image: aayush0307/finalpython:v.1
+        ports:
+        - containerPort: 3000
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-service
+spec:
+  selector:
+    app: nashbridge
+  type: NodePort
+  ports:
+   - port: 5000
+     targetPort: 5000
+     nodePort: 31110
