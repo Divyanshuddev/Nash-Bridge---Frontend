@@ -1,5 +1,5 @@
 import { Grid, TextField, Card, Typography, Box, Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router";
 import Header from "./Header";
@@ -8,6 +8,53 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 export default function Registration() {
+  const [formData,setFormData] =useState({firstName:"",middleName:"",lastName:"",gender:"",dob:"",phoneNumber:"",employeeID:"",skills:"",email:"",password:""})
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      firstName: formData.firstName,
+      middleName: formData.middleName,
+      lastName:formData.lastName ,
+      gender: formData.gender,
+      dob: "2024-05-07T05:43:17.976Z",
+      phoneNumber: formData.phoneNumber,
+      employeeId: formData.employeeID,
+      skills: [
+        formData.skills
+      ],
+      email: formData.email,
+      password: formData.password
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/practice",
+        requestOptions
+      );
+      if (response.ok) {
+        const data = await response.json();
+        navigate('/profile')
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log('ok')
+    }
+  };
   const navigate = useNavigate();
   return (
     <>
@@ -34,7 +81,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="First Name"
+                name="firstName"
+                value={formData.firstName}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -42,7 +92,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Middle Name"
+                name="middleName"
+                value={formData.middleName}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -50,7 +103,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Last Name"
+                name="lastName"
+                value={formData.lastName}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -58,6 +114,9 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Gender"
+                name="gender"
+                value={formData.gender}
+                onChange={handleInput}
                 variant="outlined"
                 select
                 defaultValue={"Gender"}
@@ -80,7 +139,7 @@ export default function Registration() {
             <Grid item xs={6} my={-1}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateField"]} >
-                  <DateField label="Date of Birth" sx={{ width: "100%" }} />
+                  <DateField label="Date of Birth" sx={{ width: "100%" }} name="dob" onChange={handleInput} />
                 </DemoContainer>
               </LocalizationProvider>
             </Grid>
@@ -88,7 +147,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Phone No"
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -96,7 +158,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Employee ID"
+                name="employeeID"
+                value={formData.employeeID}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -104,7 +169,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Skills"
+                name="skills"
+                value={formData.skills}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -112,7 +180,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Email"
+                name="email"
+                value={formData.email}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -120,7 +191,10 @@ export default function Registration() {
               <TextField
                 id="outlined-basic"
                 label="Password"
+                name="password"
+                value={formData.password}
                 variant="outlined"
+                onChange={handleInput}
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
@@ -136,7 +210,7 @@ export default function Registration() {
             <Button variant="contained" onClick={() => navigate(-1)}>
               Back
             </Button>
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" onClick={()=> handleSubmit()}>Submit</Button>
           </Box>
         </Card>
       </div>

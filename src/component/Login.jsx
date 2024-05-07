@@ -4,11 +4,46 @@ import React, { useState } from "react";
 import logo from "./logokode-removebg-preview.png";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
   const [loginData,setLoginData]= useState({email:"",password:""})
-  const onHandleSubmit=()=>{
-    
-  }
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
+  };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+  
+      const raw = JSON.stringify({
+        email:loginData.email,
+        password:loginData.password
+      });
+  
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+  
+      try {
+        const response = await fetch(
+          "http://localhost:3000/practice",
+          requestOptions
+        );
+        if (response.ok) {
+          const data = await response.json();
+          navigate('/profile')
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        console.log('ok')
+      }
+    };
   return (
     <div>
       <Header />
@@ -76,16 +111,22 @@ export default function Login() {
             <TextField
               id="outlined-basic"
               label="Email address"
+              name="email"
+              value={loginData.email}
               variant="outlined"
               sx={{ width: "50%" }}
+              onChange={handleInput}
             />
             <TextField
               id="outlined-password-input"
               label="Password"
               type="password"
+              name="password"
+              value={loginData.password}
               sx={{ width: "50%" }}
+              onChange={handleInput}
             />
-            <Button variant="contained" color="error" sx={{ width: "50%" }}>
+            <Button variant="contained" color="error" sx={{ width: "50%" }} onClick={handleSubmit}>
               Login
             </Button>
           </Box>

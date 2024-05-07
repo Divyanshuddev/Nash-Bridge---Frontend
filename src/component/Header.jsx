@@ -12,6 +12,7 @@ export default function Header() {
           <Button color='inherit' sx={{fontSize:20}} onClick={()=> navigate('/')}>Home</Button>
           <Button color='inherit' sx={{fontSize:20}} onClick={()=> navigate('/signin')}>SignIn</Button>
           <Button color='inherit' sx={{fontSize:20}} onClick={()=> navigate('/signup')}>SignUp</Button>
+          <Button color='inherit' sx={{fontSize:20}} onClick={()=> navigate('/profile')}>Hi, User</Button>
         </Stack>
         </Toolbar>
         </AppBar>
