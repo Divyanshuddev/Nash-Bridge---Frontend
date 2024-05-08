@@ -1,36 +1,39 @@
 import { Avatar,Box, Card, CardContent, Divider, Grid, Typography,Button } from "@mui/material";
 import ChipsArray from "./Skills";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import BasicRating from "./Rating";
 import BasicModal from "./ModalEdit";
+import Skills from "./Skills";
+import { useParams } from "react-router";
 
 export default function UserProfile(){
     const [open,setOpen] = React.useState(false);
+    const { id } =useParams();
     const handleClose = ()=>{
         setOpen(false)
     }
     const handleOpen = ()=>{
         setOpen(true)
     }
-//     const [data,setData] = useState([])
-//     const getData = async (e) => {
-//         const myHeaders = new Headers();
-//         myHeaders.append("tenant_name", "nashtech");
-//         myHeaders.append("Content-Type", "application/json");
+    const [data,setData] = useState([])
+    const getData = async (e) => {
+        const myHeaders = new Headers();
+        myHeaders.append("tenant_name", "nashtech");
+        myHeaders.append("Content-Type", "application/json");
      
-//         const requestOptions = {
-//           method: "GET",
-//           headers: myHeaders,
-//         };
-//         await fetch(`http://localhost:3000/profile/${id}`, requestOptions)
-//           .then((response) => response.json())
-//           .then((result) => setData(result))
-//           .catch((error) => console.error(error));
-//         console.log(data);
-//       };
-//       useEffect(() => {
-//         getData();
-//       }, []);
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+        };
+        await fetch(`http://localhost:3000/profile/${id}`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => setData(result))
+          .catch((error) => console.error(error));
+        console.log(data);
+      };
+      useEffect(() => {
+        getData();
+      },[]);
     return(
         <>
         <Box sx={{display:"flex",flexDirection:"column",gap:3}}> 
@@ -41,7 +44,7 @@ export default function UserProfile(){
         </Box>
         <Box sx={{display:"flex",justifyContent:"center",flexDirection:"column",gap:2}}>
             <Box sx={{display:"flex",gap:"2rem"}}>
-            <Typography sx={{marginTop:"1rem"}} fontWeight={'bold'} variant="h4">Devansh Shukla</Typography>
+            <Typography sx={{marginTop:"1rem"}} fontWeight={'bold'} variant="h4">{data.user?.Firstname}</Typography>
             
             </Box>
             <Box sx={{display:"flex",flexDirection:"row",gap:10}}>
@@ -120,9 +123,7 @@ export default function UserProfile(){
             </Grid>
             <Grid item xs={6}>
             <Card elevation={6} sx={{padding:3}} >
-            <Typography variant="h4">Skills</Typography>
-            <Divider sx={{marginTop:"10px",marginBottom:"1rem"}} />
-               <ChipsArray/>
+               <Skills />
                </Card>
             </Grid>
             <Grid item xs={6}>

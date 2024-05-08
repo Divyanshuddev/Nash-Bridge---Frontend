@@ -15,6 +15,8 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 import HomeTab from "./HomeTab";
 import UserProfile from "./UserProfile";
 import Calender from "./Calender";
+import Booking from "./Booking";
+import Header from "./Header";
 
 const drawerWidth = 220;
 function CustomTabPanel(props) {
@@ -60,6 +62,7 @@ export default function Profile() {
 
   return (
     <div>
+      <Header />
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <Drawer
@@ -138,7 +141,7 @@ export default function Profile() {
             <HomeTab />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            Item Two
+            <Booking />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
            <Calender/>

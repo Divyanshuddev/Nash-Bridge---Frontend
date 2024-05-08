@@ -7,6 +7,7 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import SkillsInput from "./SkillsInput";
 export default function Registration() {
   const [formData,setFormData] =useState({firstName:"",middleName:"",lastName:"",gender:"",dob:"",phoneNumber:"",employeeID:"",skills:"",email:"",password:""})
   const handleInput = (e) => {
@@ -165,17 +166,7 @@ export default function Registration() {
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="outlined-basic"
-                label="Skills"
-                name="skills"
-                value={formData.skills}
-                variant="outlined"
-                onChange={handleInput}
-                sx={{ width: "100%" }}
-              ></TextField>
-            </Grid>
+            
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
@@ -187,11 +178,24 @@ export default function Registration() {
                 sx={{ width: "100%" }}
               ></TextField>
             </Grid>
+            <Grid item xs={6} my={-3}>
+              {/* <TextField
+                id="outlined-basic"
+                label="Skills"
+                name="skills"
+                value={formData.skills}
+                variant="outlined"
+                onChange={handleInput}
+                sx={{ width: "100%" }}
+              ></TextField> */}
+              <SkillsInput />
+            </Grid>
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Password"
                 name="password"
+              type="password"
                 value={formData.password}
                 variant="outlined"
                 onChange={handleInput}
