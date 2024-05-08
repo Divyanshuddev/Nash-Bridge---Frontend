@@ -15,10 +15,11 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 import HomeTab from "./HomeTab";
 import UserProfile from "./UserProfile";
 import Calender from "./Calender";
-import Booking from "./Booking";
-import Header from "./Header";
 import { useLocation } from "react-router";
-
+import Header from "./Header";
+import Booking from "./Booking";
+import Logout from "./Logout";
+import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 220;
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -133,7 +134,14 @@ export default function Profile() {
                 label="Activity"
                 {...a11yProps(5)}
               />
+               <Tab
+                icon={<LogoutIcon/>}
+                iconPosition="start"
+                label="Logout"
+                {...a11yProps(6)}
+              />
             </Tabs>
+            
           </Box>
         </Drawer>
         <Box
@@ -157,6 +165,9 @@ export default function Profile() {
           </CustomTabPanel>
           <CustomTabPanel value={value} index={5}>
             Item three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            <Logout />
           </CustomTabPanel>
         </Box>
       </Box>

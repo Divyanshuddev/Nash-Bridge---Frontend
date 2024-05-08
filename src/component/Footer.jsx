@@ -56,12 +56,8 @@ const styles = {
   },
   blocka:{
     color: "white",
-    marginLeft: "850px",
-    marginTop: "-80px"
-  },
-  blockb:{
-    color: "white",
-    marginLeft: "850px",
+    marginLeft: "750px",
+    marginTop: "-90px"
   },
   navs:{
     marginTop:"120px"

@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div style={{zIndex:1}}>
         <AppBar position='static' >
-        <Toolbar >
+        <Toolbar sx={{backgroundColor:"red",height:"5rem"}} >
         <Typography variant='h4' component={'div'} sx={{flexGrow:1}}>Nash Bridge</Typography>
         <Stack direction={'row'} spacing={2}>
           <Button color='inherit' sx={{fontSize:20}} onClick={()=> navigate('/')}>Home</Button>

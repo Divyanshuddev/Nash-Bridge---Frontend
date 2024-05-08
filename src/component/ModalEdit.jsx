@@ -20,11 +20,30 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const onHandleEdit = () => {
-  alert("Details Edited Successfully");
-};
 
 export default function BasicModal(props) {
+    const [fname,setFname] = React.useState(props.data.firstName)
+    const [mname,setMname] = React.useState(props.data.middleName)
+    const [lname,setLname] = React.useState(props.data.lastName)
+    const [gender,setGender] = React.useState(props.data.gender)
+    const [dob,setDob] = React.useState(props.data.dateOfBirth)
+    const [phone,setPhone] = React.useState(props.data.phoneNumber)
+    const [employee,setEmloyee] = React.useState(props.data.employeeId)
+    const [email,setEmail] = React.useState(props.data.email)
+    const onHandleEdit = () => {
+        const editedDetails = {
+            firstName:fname ,
+            middleName: mname,
+            lastName:lname,
+            gender:gender,
+            dateOfBirth:dob,
+            phoneNumber:phone,
+            employeeId:employee,
+            email:email
+        }
+        console.log(editedDetails)
+        alert("Details Edited Successfully");
+      };
   return (
     <div>
       <Modal
@@ -54,8 +73,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="First Name"
+                    value={fname}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setFname(e.target.value)
                     }}
                   />
                 </Grid>
@@ -63,8 +86,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="Middle Name"
+                    value={mname}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setMname(e.target.value)
                     }}
                   />
                 </Grid>
@@ -72,8 +99,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="Last Name"
+                    value={lname}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setLname(e.target.value)
                     }}
                   />
                 </Grid>
@@ -81,8 +112,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="Gender"
+                    value={gender}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setGender(e.target.value)
                     }}
                   />
                 </Grid>
@@ -90,8 +125,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="Date Of Birth"
+                    value={dob}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setDob(e.target.value)
                     }}
                   />
                 </Grid>
@@ -99,8 +138,12 @@ export default function BasicModal(props) {
                   <TextField
                     id="outlined-required"
                     label="Phone Number"
+                    value={phone}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setPhone(e.target.value)
                     }}
                   />
                 </Grid>
@@ -109,8 +152,12 @@ export default function BasicModal(props) {
                     disabled
                     id="outlined-required"
                     label="Employee ID"
+                    value={employee}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setEmloyee(e.target.value)
                     }}
                   />
                 </Grid>
@@ -119,8 +166,12 @@ export default function BasicModal(props) {
                     disabled
                     id="outlined-required"
                     label="Email"
+                    value={email}
                     sx={{
                       width: "100%",
+                    }}
+                    onChange={(e)=>{
+                        setEmail(e.target.value)
                     }}
                   />
                 </Grid>
