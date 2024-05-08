@@ -8,7 +8,7 @@ import {
   Avatar,
   CardContent,
 } from "@mui/material";
-import React from "react";
+import React, { useState,useEffect } from "react";
 import EditModal from "./EditModal";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -27,17 +27,19 @@ import SlotHistory from "./SlotHistory";
 export default function HomeTab() {
   const [slot, setSlot] = React.useState(0);
   const [confirm,setConfirm] = React.useState(0);
-  const [openModal,setOpenModal] = React.useState(false)
-  // const handleOpen = () => {
-  //   setOpenModal(true);
-  //   console.log(openModal)
-  // };
-  // const handleClose = () => {
-  //   setOpenModal(false);
-  // };
-  // const handleChange = (event) => {
-  //   setSlot(event.target.value);
-  // };
+  const [open,setOpen] = React.useState(false);
+  const [createslot,setCreateSlot]=React.useState(false);
+  const [todaySlots,setTodaySlots] = React.useState([]);
+  const handleModalOpen = () => {
+    setOpen(true);
+    console.log('open')
+  };
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+  const handleChange = (event) => {
+    setSlot(event.target.value);
+  };
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -47,6 +49,24 @@ export default function HomeTab() {
   const handleClose = () => {
     setOpenAlert(false);
   };
+  const getData = async (e) => {
+    const myHeaders = new Headers();
+    myHeaders.append("tenant_name", "nashtech");
+    myHeaders.append("Content-Type", "application/json");
+ 
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+    };
+    await fetch(`http://localhost:3000/profile/`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => setTodaySlots(result))
+      .catch((error) => console.error(error));
+    // console.log(data);
+  };
+  useEffect(() => {
+    getData();
+  },[]);
   return (
     <div>
       <Box>
@@ -54,6 +74,9 @@ export default function HomeTab() {
           Hi, User
         </Typography>
         <Divider sx={{ marginTop: "10px" }} />
+        <Box sx={{display:'flex',justifyContent:"flex-end"}} my={1}>
+          <Button color="success" variant="contained" onClick={()=>}>Create your slot</Button>
+        </Box>
       </Box>
       <Grid container spacing={4}>
       <Grid item xs={6} my={5}>
@@ -63,7 +86,11 @@ export default function HomeTab() {
         <Typography variant="h5">Today Slot's</Typography>
       </Box>
       <List sx={{ width: '100%', bgcolor: 'background.paper',maxHeight: '100%', overflow: 'auto',marginBottom:"5px" }}>
-      <ListItem alignItems="flex-start">
+
+
+      {
+        todaySlots.map((item)=>(
+          <ListItem alignItems="flex-start" key={item.id}>
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
@@ -80,9 +107,40 @@ export default function HomeTab() {
                 Slot Tittle
               </Typography>
               {" — I'll be in your neighborhood doing errands this…"}
-              <Button >
+              <Button onClick={()=> handleModalOpen()}>
                 <OpenInNewIcon />
-              </Button>
+              </Button> 
+              {confirm===0?(<Button variant="outlined" onClick={()=> handleClickOpen()}>Confirm</Button>): (<Button variant="contained" color="success">Booked</Button>)}
+            </React.Fragment>
+          }
+        />
+      <Divider variant="inset" component="li" />
+      </ListItem>
+        ))
+      }
+
+
+
+      {/* <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Person 1"
+          secondary={
+            <React.Fragment >
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Slot Tittle
+              </Typography>
+              {" — I'll be in your neighborhood doing errands this…"}
+              <Button onClick={()=> handleModalOpen()}>
+                <OpenInNewIcon />
+              </Button> 
               {confirm===0?(<Button variant="outlined" onClick={()=> handleClickOpen()}>Confirm</Button>): (<Button variant="contained" color="success">Booked</Button>)}
             </React.Fragment>
           }
@@ -331,7 +389,7 @@ export default function HomeTab() {
             </React.Fragment>
           }
         />
-      </ListItem>
+      </ListItem> */}
     </List>
     </CardContent>
     <Dialog
@@ -369,10 +427,14 @@ export default function HomeTab() {
       <Box sx={{display:"flex",flexDirection:"column",gap:3}}>
       <Box>
       <Card sx={{width:"100%"}}>
-      <Box sx={{padding:2}}>
-        <Typography variant="h5">Slot's History</Typography>
+      <Box sx={{padding:2,display:"flex",flexDirection:"row",gap:1,justifyContent:"space-between"}}>
+        <Typography variant="h5">  Upcoming Slot's </Typography>
       </Box>
       <SlotHistory />
+      <Box sx={{padding:2,display:"flex",flexDirection:"row",gap:1,justifyContent:"space-between"}}>
+        <Typography variant="h5">  Slot's History </Typography>
+        <Typography >view more</Typography>
+      </Box>
         </Card>
       </Box>
         <Box>
@@ -400,6 +462,11 @@ export default function HomeTab() {
         
       </Grid>
       </Grid>
+      {
+        open && (
+          <EditModal openModal={open} closeModal={handleModalClose} />
+        )
+      }
     </div>
   );
 }

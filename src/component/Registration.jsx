@@ -9,7 +9,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SkillsInput from "./SkillsInput";
 export default function Registration() {
-  const [formData,setFormData] =useState({firstName:"",middleName:"",lastName:"",gender:"",dob:"",phoneNumber:"",employeeID:"",skills:"",email:"",password:""})
+  const [formData,setFormData] =useState({firstName:"",middleName:"",lastName:"",gender:"",dob:"2024-01-01",phoneNumber:"",employeeID:"",skills:"",email:"",password:""})
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,7 +24,7 @@ export default function Registration() {
       middleName: formData.middleName,
       lastName:formData.lastName ,
       gender: formData.gender,
-      dob: "2024-05-07T05:43:17.976Z",
+      dob: formData.dob || "2024-01-01",
       phoneNumber: formData.phoneNumber,
       employeeId: formData.employeeID,
       skills: [
@@ -138,11 +138,21 @@ export default function Registration() {
               </TextField>
             </Grid>
             <Grid item xs={6} my={-1}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateField"]} >
-                  <DateField label="Date of Birth" sx={{ width: "100%" }} name="dob" onChange={handleInput} />
+                  <DateField label="Date of Birth" sx={{ width: "100%" }} name="dob" value={formData.dob} onChange={handleInput} />
                 </DemoContainer>
-              </LocalizationProvider>
+              </LocalizationProvider> */}
+              <TextField
+                id="outlined-basic"
+                label="Date of Birth"
+                name="dob"
+                type="date"
+                value={formData.dob}
+                variant="outlined"
+                onChange={handleInput}
+                sx={{ width: "100%" }}
+              ></TextField>
             </Grid>
             <Grid item xs={6}>
               <TextField

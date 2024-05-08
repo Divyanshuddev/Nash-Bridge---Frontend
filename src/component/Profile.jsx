@@ -17,6 +17,7 @@ import UserProfile from "./UserProfile";
 import Calender from "./Calender";
 import Booking from "./Booking";
 import Header from "./Header";
+import { useLocation } from "react-router";
 
 const drawerWidth = 220;
 function CustomTabPanel(props) {
@@ -53,8 +54,10 @@ function a11yProps(index) {
 }
 
 export default function Profile() {
+  const location = useLocation();
+  const data = location.state;
   const [value, setValue] = React.useState(0);
-
+  console.log(value);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

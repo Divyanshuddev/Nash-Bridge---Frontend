@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router'
 export default function Header() {
   const navigate=useNavigate();
   return (
-    <div>
-        <AppBar position='static'>
+    <div style={{zIndex:1}}>
+        <AppBar position='static' >
         <Toolbar >
         <Typography variant='h4' component={'div'} sx={{flexGrow:1}}>Nash Bridge</Typography>
         <Stack direction={'row'} spacing={2}>

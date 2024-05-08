@@ -1,5 +1,4 @@
 import { Avatar,Box, Card, CardContent, Divider, Grid, Typography,Button } from "@mui/material";
-import ChipsArray from "./Skills";
 import React, { useState,useEffect } from "react";
 import BasicRating from "./Rating";
 import BasicModal from "./ModalEdit";

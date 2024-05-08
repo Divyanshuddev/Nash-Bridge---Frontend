@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import { Card,CardContent,ListItem,ListItemAvatar,Avatar,List,ListItemText,Button } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { TypeSpecimen } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
+
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -48,6 +50,11 @@ export default function SlotHistory() {
     setValue(newValue);
   };
 
+  
+
+
+  const defaultTab = {tab:1};
+  const navigate = useNavigate();
   return (
     <div>
      <Box sx={{ width: '100%' }}>
@@ -81,7 +88,7 @@ export default function SlotHistory() {
                 Slot Tittle
               </Typography>
               {" — I'll be in your neighborhood doing errands this…"}
-              <Button >
+              <Button onClick={()=> navigate('/profile',{state:defaultTab}) } >
                 <OpenInNewIcon />
               </Button>
               {/* {confirm===0?(<Button variant="outlined" >Confirm</Button>): (<Button variant="contained" color="success">Booked</Button>)} */}

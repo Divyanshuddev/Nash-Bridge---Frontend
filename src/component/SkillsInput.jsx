@@ -5,7 +5,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
-import { TextField } from '@mui/material';
 
 const Root = styled('div')(
   ({ theme }) => `
@@ -171,7 +170,7 @@ export default function SkillsInput() {
     setAnchorEl,
   } = useAutocomplete({
     id: 'customized-hook-demo',
-    defaultValue: [top100Films[1]],
+    // defaultValue: [top100Films[1]],
     multiple: true,
     options: top100Films,
     getOptionLabel: (option) => option.title,
@@ -185,7 +184,7 @@ export default function SkillsInput() {
           {value.map((option, index) => (
             <StyledTag label={option.title} {...getTagProps({ index })} />
           ))}
-          <input  {...getInputProps()} />
+          <input  {...getInputProps()}  />
         </InputWrapper>
       </div>
       {groupedOptions.length > 0 ? (
