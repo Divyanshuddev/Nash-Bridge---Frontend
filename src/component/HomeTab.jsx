@@ -29,6 +29,7 @@ export default function HomeTab() {
   const [confirm,setConfirm] = React.useState(0);
   const [open,setOpen] = React.useState(false);
   const [createslot,setCreateSlot]=React.useState(false);
+  const [formData,setFormData]= React.useState({title:"asds",description:"cdscvfg",slot:"csdcfv"})
   const [todaySlots,setTodaySlots] = React.useState([]);
   const handleModalOpen = () => {
     setOpen(true);
@@ -67,6 +68,45 @@ export default function HomeTab() {
   useEffect(() => {
     getData();
   },[]);
+
+
+  const handleCreateModal = async (e) => {
+    e.preventDefault();
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+        id:2,
+      title:formData.title,
+      description:formData.description,
+      slot:formData.slot
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/practice",
+        requestOptions
+      );
+      if (response.ok) {
+        const data = await response.json();
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log('ok')
+    }
+  };
+
+
+
+
   return (
     <div>
       <Box>
@@ -75,7 +115,7 @@ export default function HomeTab() {
         </Typography>
         <Divider sx={{ marginTop: "10px" }} />
         <Box sx={{display:'flex',justifyContent:"flex-end"}} my={1}>
-          <Button color="success" variant="contained" onClick={()=>}>Create your slot</Button>
+          <Button color="success" variant="contained" onClick={()=> handleCreateModal()}>Create your slot</Button>
         </Box>
       </Box>
       <Grid container spacing={4}>
